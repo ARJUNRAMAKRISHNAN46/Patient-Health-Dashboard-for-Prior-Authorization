@@ -1,5 +1,5 @@
 const express = require("express");
-const userRouter = require("./routes/memberRoutes");
+const userRouter = require("./routes/userRoutes");
 const docsRouter = require("./routes/docsRoutes");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");

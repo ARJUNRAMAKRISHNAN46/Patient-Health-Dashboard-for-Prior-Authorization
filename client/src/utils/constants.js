@@ -86,6 +86,30 @@ export const ROUTES = {
       upcomingAppointment: "2024-03-25",
       priority: "low"
     },
+    {
+      id: 2,
+      name: "Sarah Johnson",
+      age: 32,
+      condition: "Type 2 Diabetes",
+      recentTreatments: ["Insulin Therapy", "Nutritional Counseling"],
+      insurance: "Aetna",
+      lastVisit: "2024-03-20",
+      status: "Active",
+      upcomingAppointment: "2024-04-05",
+      priority: "high"
+    },
+    {
+      id: 3,
+      name: "Michael Brown",
+      age: 58,
+      condition: "Arthritis",
+      recentTreatments: ["Physical Therapy", "Pain Management"],
+      insurance: "Medicare",
+      lastVisit: "2024-03-10",
+      status: "Active",
+      upcomingAppointment: "2024-03-25",
+      priority: "low"
+    },
   ];
   
   export const INSURANCE_PROVIDERS = [

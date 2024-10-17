@@ -5,14 +5,14 @@ const {
   getUser,
   editUser,
   deleteUser,
-} = require("../controllers/memberController");
+} = require("../controllers/userController");
 const authenticateUser = require("../middlewares/authUser");
 const router = express.Router();
 
 router.post("/login", loginUser);
 router.post("/register", signUpUser);
-router.get("/get-member", authenticateUser, getUser);
-router.put("/update-member", authenticateUser, editUser);
-router.delete("/delete-member", authenticateUser, deleteUser);
+router.get("/get-user", authenticateUser, getUser);
+router.put("/update-user", authenticateUser, editUser);
+router.delete("/delete-user", authenticateUser, deleteUser);
 
 module.exports = router;

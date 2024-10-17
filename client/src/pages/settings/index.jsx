@@ -1,7 +1,7 @@
 import React from "react";
-import Layout from "@/components/layout/Layout";
-import SettingsForm from "@/components/settings/SettingsForm";
-import { useTheme } from "@/context/ThemeContext";
+import Layout from "../../components/layout/Layout";
+// import SettingsForm from "../../pages/settings/SettingsForm";
+import { useTheme } from "../../context/ThemeContext";
 
 const SettingsPage = () => {
   const { theme } = useTheme();
@@ -17,7 +17,7 @@ const SettingsPage = () => {
         >
           Settings
         </h1>
-        <SettingsForm />
+        {/* <SettingsForm /> */}
       </div>
     </Layout>
   );

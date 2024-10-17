@@ -1,16 +1,22 @@
 import React from "react";
 import { Users, FileText, Settings, LogOut } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ isSidebarOpen, toggleMenuBar }) => {
   const { theme } = useTheme();
+  const navigate = useNavigate();
 
   const navigationItems = [
-    { icon: Users, label: "Patients", href: "#" },
-    { icon: FileText, label: "Authorizations", href: "#" },
-    { icon: Settings, label: "Settings", href: "#" },
-    { icon: LogOut, label: "Logout", href: "#" },
+    { icon: Users, label: "Patients", path: "/" },
+    { icon: FileText, label: "Authorizations", path: "/authorizations" },
+    { icon: Settings, label: "Settings", path: "/settings" },
+    { icon: LogOut, label: "Logout", path: "/" },
   ];
+
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
 
   const sidebarClasses = `
     fixed inset-y-0 left-0 transform 
@@ -22,7 +28,7 @@ const Sidebar = ({ isSidebarOpen, toggleMenuBar }) => {
       theme === "dark" ? "border-r border-gray-700" : "border-r border-gray-200"
     }
   `;
-  
+
   return (
     <aside className={sidebarClasses}>
       <div className="px-4 py-6">
@@ -32,7 +38,7 @@ const Sidebar = ({ isSidebarOpen, toggleMenuBar }) => {
             return (
               <a
                 key={index}
-                href={item.href}
+                onClick={() => handleNavigate(item.path)}
                 className={`
                   flex items-center px-4 py-3 rounded-lg
                   ${
@@ -54,5 +60,3 @@ const Sidebar = ({ isSidebarOpen, toggleMenuBar }) => {
 };
 
 export default Sidebar;
-
-

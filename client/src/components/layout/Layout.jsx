@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { useTheme } from "../../context/ThemeContext";
-// import cptCodes from "cpt"
 
 const Layout = ({ children }) => {
   const { theme } = useTheme();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleMenuBar = () => {
-    console.log("clickedddddddddddddddddd");
-
     setSidebarOpen(!isSidebarOpen);
   };
 

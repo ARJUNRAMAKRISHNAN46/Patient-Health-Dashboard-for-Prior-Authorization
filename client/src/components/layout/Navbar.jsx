@@ -25,13 +25,13 @@ const Navbar = ({ toggleMenuBar }) => {
             >
               <Menu className="h-6 w-6" />
             </button>
-            <h1
+            {/* <h1
               className={`text-xl font-semibold ml-48 ${
                 theme === "dark" ? "text-white" : "text-gray-900"
               }`}
             >
               Healthcare Dashboard
-            </h1>
+            </h1> */}
           </div>
           <div className="flex items-center space-x-4">
             <ThemeToggle />

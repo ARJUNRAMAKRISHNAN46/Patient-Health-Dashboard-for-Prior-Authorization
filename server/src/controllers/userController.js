@@ -1,4 +1,4 @@
-const Members = require("../models/memberModel");
+const Users = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const generateAccessToken = require("../utils/jwt/accessToken");
 
@@ -7,19 +7,19 @@ module.exports = {
     try {
       const credentials = req.body;
       console.log(credentials);
-      const existMember = await Members.findOne({ email: credentials?.email });
-      if (!existMember) {
+      const existUser = await Users.findOne({ email: credentials?.email });
+      if (!existUser) {
         res.status(404).json({
           success: false,
-          member: null,
+          data: null,
           message: "No user found!",
         });
         return;
       }
 
       const payload = {
-        _id: existMember?._id,
-        name: existMember?.name,
+        _id: existUser?._id,
+        name: existUser?.name,
       };
 
       const AccessToken = generateAccessToken(payload);
@@ -29,12 +29,12 @@ module.exports = {
         sameSite: "none",
         secure: true,
       });
-      
+
       console.log("🚀 ~ return ~ result:", AccessToken);
 
       res.status(200).json({
         success: true,
-        member: existMember,
+        data: existUser,
         message: "Log-in successfully!",
       });
     } catch (error) {
@@ -45,21 +45,21 @@ module.exports = {
     try {
       const credentials = req.body;
       console.log("credentials", credentials);
-      const existMember = await Members.findOne({ email: credentials?.email });
-      if (existMember) {
+      const existUser = await Users.findOne({ email: credentials?.email });
+      if (existUser) {
         res.status(404).json({
           success: false,
-          member: null,
+          data: null,
           message: "User already exists!",
         });
         return;
       }
-      const membersData = await Members.create(credentials);
-      console.log("🚀 ~ signUpUser: ~ userData:", membersData);
+      const userData = await Users.create(credentials);
+      console.log("🚀 ~ signUpUser: ~ userData:", userData);
 
       const payload = {
-        _id: membersData?._id,
-        name: membersData?.name,
+        _id: userData?._id,
+        name: userData?.name,
       };
 
       const AccessToken = await generateAccessToken(payload);
@@ -73,7 +73,7 @@ module.exports = {
 
       res.status(200).json({
         success: true,
-        member: membersData,
+        data: userData,
         message: "user created successfully!",
       });
     } catch (error) {
@@ -82,11 +82,11 @@ module.exports = {
   },
   getUser: async (req, res) => {
     try {
-      const members = await Members.find();
+      const users = await Users.find();
       res.status(200).json({
         success: true,
-        member: members,
-        message: "members listed successfully!",
+        data: users,
+        message: "users listed successfully!",
       });
     } catch (error) {
       console.log(error);
@@ -95,7 +95,7 @@ module.exports = {
   editUser: async (req, res) => {
     try {
       const credentials = req.body;
-      const updateMember = await Members.findOneAndUpdate(
+      const updateUser = await Users.findOneAndUpdate(
         { email: credentials?.email },
         {
           name: credentials?.name,
@@ -103,7 +103,7 @@ module.exports = {
         }
       );
 
-      console.log(updateMember);
+      console.log(updateUser);
     } catch (error) {
       console.log(error);
     }
@@ -111,22 +111,21 @@ module.exports = {
   deleteUser: async (req, res) => {
     try {
       const credentials = req.body;
-      const deletedMember = await Members.findOneAndDelete({
+      const deletedUser = await Users.findOneAndDelete({
         email: credentials?.email,
       });
-      console.log("🚀 ~ deleteUser: ~ deletedMember:", deletedMember);
 
-      if (!deletedMember) {
+      if (!deletedUser) {
         res.status(404).json({
           success: false,
-          member: null,
-          message: "member deletion failed!",
+          data: null,
+          message: "user deletion failed!",
         });
       }
       res.status(200).json({
         success: true,
-        member: null,
-        message: "member deleted successfully!",
+        data: null,
+        message: "user deleted successfully!",
       });
     } catch (error) {
       console.log(error);
