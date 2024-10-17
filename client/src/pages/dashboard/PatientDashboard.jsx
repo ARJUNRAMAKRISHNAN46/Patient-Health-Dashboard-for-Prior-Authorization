@@ -27,7 +27,7 @@ const PatientDashboard = () => {
       try {
         setIsLoading(true);
         const response = await dispatch(listPatient());
-        console.log("🚀 ~ fetchPatients ~ response:", response)
+        console.log("🚀 ~ fetchPatients ~ response:", response);
         setPatients(response?.payload?.data);
         setError(null);
       } catch (err) {
@@ -135,12 +135,6 @@ const PatientDashboard = () => {
             >
               New Authorization
             </button>
-            {/* <button
-              onClick={() => setAuthModalOpen(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              New Authorization
-            </button> */}
           </div>
         </div>
 
