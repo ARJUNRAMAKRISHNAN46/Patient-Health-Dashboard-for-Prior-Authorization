@@ -17,12 +17,13 @@ const app = express();
 const PORT = process.env.PORT;
 
 const corsOptions = {
-  origin: "http://localhost:5173" || "https://patient-health-dashboard-for-prior-authorization.vercel.app",
+  origin: ["http://localhost:5173", "https://patient-health-dashboard-for-prior-authorization.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
   optionsSuccessStatus: 200,
 };
+
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
