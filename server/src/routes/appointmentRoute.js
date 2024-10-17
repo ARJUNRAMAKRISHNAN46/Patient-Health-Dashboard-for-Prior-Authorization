@@ -7,7 +7,7 @@ const {
 } = require("../controllers/appointmentController");
 const router = express.Router();
 
-router.get("/get-appointment", getDocs);
+router.get("/list-appointment", getDocs);
 router.post("/add-appointment", createAppointment);
 router.put("/update-doc", updateDocs);
 router.delete("/delete-doc", deleteDocs);

@@ -6,6 +6,7 @@ import { isExist } from "./store/actions/authActions";
 import PatientDashboard from "./pages/dashboard/PatientDashboard";
 import Login from "./pages/authentications/Login";
 import Signup from "./pages/authentications/Signup";
+import PayerDashboard from "./pages/dashboard/PrayerDashboard";
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const user = useSelector((state) => state.auth.user);
@@ -15,7 +16,7 @@ const PrivateRoute = ({ children, allowedRoles }) => {
   }
 
   if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   return children;
@@ -55,6 +56,14 @@ const App = () => {
         element={
           <PrivateRoute allowedRoles={["doctor"]}>
             <PatientDashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/payer-dashboard"
+        element={
+          <PrivateRoute allowedRoles={["payer"]}>
+            <PayerDashboard />
           </PrivateRoute>
         }
       />

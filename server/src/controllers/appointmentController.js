@@ -3,9 +3,9 @@ const Appointment = require("../models/appointmentModel");
 module.exports = {
   getDocs: async (req, res) => {
     try {
-      const documents = await Appointment.find();
-      console.log("home page", documents);
-      if (!documents) {
+      const appointments = await Appointment.find();
+      console.log("home page", appointments);
+      if (!appointments) {
         res.status(404).json({
           success: false,
           data: null,
@@ -13,10 +13,10 @@ module.exports = {
         });
         return;
       }
-      console.log("🚀 ~ getTodo: ~ todos:", documents);
+      console.log("🚀 ~ getTodo: ~ todos:", appointments);
       res.status(200).json({
         success: true,
-        data: documents,
+        data: appointments,
         message: "Documents fetched successfully!",
       });
     } catch (error) {
@@ -27,7 +27,7 @@ module.exports = {
   createAppointment: async (req, res) => {
     try {
       const appointmentData = req.body;
-      console.log("🚀 ~ addDocs: ~ documentData:", appointmentData)
+      console.log("🚀 ~ addDocs: ~ documentData:", appointmentData);
       const newAppointment = await Appointment.create(appointmentData);
       if (!newAppointment) {
         res.status(404).json({

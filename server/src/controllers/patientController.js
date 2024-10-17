@@ -24,4 +24,18 @@ module.exports = {
       console.log(error);
     }
   },
+
+  listPatients: async (req, res) => {
+    try {
+      const patients = await Patient.find();
+      console.log("🚀 ~ listPatients: ~ patients:", patients)
+      res.status(200).json({
+        success: false,
+        data: patients,
+        message: "patient listed successfully!",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };

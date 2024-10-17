@@ -1,6 +1,5 @@
-import toast from "react-hot-toast";
 import { createSlice } from "@reduxjs/toolkit";
-import { createPatient } from "../actions/patientActions";
+import { createPatient, listPatient } from "../actions/patientActions";
 
 const initialState = {
   loading: false,
@@ -35,7 +34,20 @@ const patientReducer = createSlice({
         state.err = payload.message;
         state.user = null;
       })
-      
+      .addCase(listPatient.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(listPatient.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.err = false;
+        state.user = payload.data;
+        state.message = payload.message;
+      })
+      .addCase(listPatient.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.err = payload.message;
+        state.user = null;
+      });
   },
 });
 

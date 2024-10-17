@@ -5,15 +5,15 @@ import PatientList from "../../components/dashboard/PatientList";
 import PatientDetails from "../../components/dashboard/PatientDetails";
 import AuthorizationModal from "../../components/modals/AuthorizationModal";
 import NewPatientModal from "../../components/modals/NewPatientModal";
-import { MOCK_PATIENTS } from "../../utils/constants";
+// import { MOCK_PATIENTS } from "../../utils/constants";
 import { AlertCircle } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { createAppointment } from "../../store/actions/appointmentActions";
-import { createPatient } from "../../store/actions/patientActions";
+import { createPatient, listPatient } from "../../store/actions/patientActions";
 
 const PatientDashboard = () => {
   const { theme } = useTheme();
-  const [patients, setPatients] = useState(MOCK_PATIENTS);
+  const [patients, setPatients] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [isAuthModalOpen, setAuthModalOpen] = useState(false);
@@ -26,8 +26,9 @@ const PatientDashboard = () => {
     const fetchPatients = async () => {
       try {
         setIsLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setPatients(MOCK_PATIENTS);
+        const response = await dispatch(listPatient());
+        console.log("🚀 ~ fetchPatients ~ response:", response)
+        setPatients(response?.payload?.data);
         setError(null);
       } catch (err) {
         setError("Failed to load patients. Please try again later.");

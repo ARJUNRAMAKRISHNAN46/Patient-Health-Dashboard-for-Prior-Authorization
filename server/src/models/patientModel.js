@@ -31,10 +31,12 @@ const patientSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    recentTreatments: {
-      type: String,
-      required: true,
-    },
+    recentTreatments: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     priority: {
       type: String,
       enum: ["Low", "Medium", "High"],
