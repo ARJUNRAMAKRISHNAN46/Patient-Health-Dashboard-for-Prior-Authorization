@@ -17,7 +17,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 const corsOptions = {
-  origin: ["https://patient-health-dashboard-for-prior-authorization.vercel.app"],
+  origin: "https://patient-health-dashboard-for-prior-authorization.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
