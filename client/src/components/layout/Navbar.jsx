@@ -2,9 +2,11 @@ import React from "react";
 import { Bell, Menu } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import ThemeToggle from "../ui/ThemeToggle";
+import { useSelector } from "react-redux";
 
 const Navbar = ({ toggleMenuBar }) => {
   const { theme } = useTheme();
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <nav
@@ -51,7 +53,7 @@ const Navbar = ({ toggleMenuBar }) => {
                 theme === "dark" ? "text-white" : "text-gray-900"
               }`}
             >
-              JS
+              {user?.email?.slice(0, 2) || "JS"}
             </div>
           </div>
         </div>

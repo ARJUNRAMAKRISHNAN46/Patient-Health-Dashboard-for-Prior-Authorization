@@ -6,8 +6,10 @@ module.exports = {
   loginUser: async (req, res) => {
     try {
       const credentials = req.body;
+      console.log("🚀 ~ loginUser: ~ credentials:", credentials);
       console.log(credentials);
       const existUser = await Users.findOne({ email: credentials?.email });
+      console.log("🚀 ~ loginUser: ~ existUser:", existUser);
       if (!existUser) {
         res.status(404).json({
           success: false,
@@ -108,6 +110,52 @@ module.exports = {
       console.log(error);
     }
   },
+
+  logout: async (req, res) => {
+    res.clearCookie("access_token");
+    console.log("cookie cleared");
+    res.status(200).json({
+      success: true,
+      data: null,
+      message: "Logout successful!",
+    });
+  },
+
+  isExist: async (req, res) => {
+    const token = req.cookies.access_token;
+    console.log("🚀 ~ isExist:async ~ token:", token);
+    if (token) {
+      const exist = jwt.verify(
+        token,
+        String(process.env.JWT_SECRET),
+        (error, decoded) => {
+          if (error) {
+            throw new Error(error?.message);
+          } else {
+            console.log(decoded, "----------------------------->");
+            return decoded;
+          }
+        }
+      );
+      const existUser = await Users.findById(exist?._id);
+      console.log("🚀 ~ isExist:async ~ existUser:", existUser);
+      if (!existUser) {
+        return;
+      }
+      res.status(200).json({
+        success: true,
+        data: existUser,
+        message: "User found!",
+      });
+      return;
+    }
+    res.status(400).json({
+      success: false,
+      data: null,
+      message: "No user found!",
+    });
+  },
+
   deleteUser: async (req, res) => {
     try {
       const credentials = req.body;

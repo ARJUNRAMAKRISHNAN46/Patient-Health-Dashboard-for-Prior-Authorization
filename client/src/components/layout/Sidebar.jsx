@@ -2,19 +2,26 @@ import React from "react";
 import { Users, FileText, Settings, LogOut } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/actions/authActions";
 
 const Sidebar = ({ isSidebarOpen, toggleMenuBar }) => {
   const { theme } = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const navigationItems = [
     { icon: Users, label: "Patients", path: "/" },
     { icon: FileText, label: "Authorizations", path: "/authorizations" },
     { icon: Settings, label: "Settings", path: "/settings" },
-    { icon: LogOut, label: "Logout", path: "/" },
+    { icon: LogOut, label: "Logout", path: null },
   ];
 
-  const handleNavigate = (path) => {
+  const handleNavigate = async (path) => {
+    if (path === null) {
+      navigate("/login");
+      await dispatch(logout());
+    }
     navigate(path);
   };
 

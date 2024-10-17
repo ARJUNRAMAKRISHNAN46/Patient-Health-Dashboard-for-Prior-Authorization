@@ -5,7 +5,6 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import useTheme from "../../hooks/useTheme";
 import { signupValidationSchema } from "../../validation/SignupValidation";
 import { useDispatch } from "react-redux";
-import { signupUser } from "../../store/authActions";
 
 const Signup = () => {
   const { theme, toggleTheme } = useTheme();
@@ -26,7 +25,7 @@ const Signup = () => {
       await dispatch(signupUser(values));
       setSubmitting(false);
 
-      navigate("/sign-in");
+      navigate("/");
     } catch (error) {
       console.error("Signup error:", error);
       setSubmitting(false);
@@ -34,7 +33,7 @@ const Signup = () => {
   };
 
   const handleNavigate = () => {
-    navigate("/sign-in");
+    navigate("/login");
   };
 
   const CustomInput = ({

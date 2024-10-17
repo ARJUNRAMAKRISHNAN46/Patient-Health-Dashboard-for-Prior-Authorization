@@ -2,27 +2,38 @@ import React from "react";
 import { Sun, Moon, Mail, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import useTheme from "../../hooks/useTheme";
 import { loginValidationSchema } from "../../validation/LoginValidation";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../store/actions/authActions";
 
 const Login = () => {
   const { theme, toggleTheme } = useTheme();
   const isDarkMode = theme === "dark";
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const initialValues = {
     email: "",
     password: "",
   };
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    console.log(values);
-    setSubmitting(false);
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      console.log("Form values:", values);
+
+      await dispatch(loginUser(values));
+      setSubmitting(false);
+
+      navigate("/doctor-dashboard");
+    } catch (error) {
+      console.error("Signup error:", error);
+      setSubmitting(false);
+    }
   };
 
   const handleNavigate = () => {
-    navigate("/register");
+    navigate("/signup");
   };
 
   const CustomInput = ({

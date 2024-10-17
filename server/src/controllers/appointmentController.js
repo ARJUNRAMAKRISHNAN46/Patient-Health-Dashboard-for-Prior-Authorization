@@ -1,9 +1,9 @@
-const Docs = require("../models/docModel");
+const Appointment = require("../models/appointmentModel");
 
 module.exports = {
   getDocs: async (req, res) => {
     try {
-      const documents = await Docs.find();
+      const documents = await Appointment.find();
       console.log("home page", documents);
       if (!documents) {
         res.status(404).json({
@@ -24,23 +24,23 @@ module.exports = {
     }
   },
 
-  addDocs: async (req, res) => {
+  createAppointment: async (req, res) => {
     try {
-      const documentData = req.body;
-      console.log("🚀 ~ addDocs: ~ documentData:", documentData)
-      const newDoc = await Docs.create(documentData);
-      if (!newDoc) {
+      const appointmentData = req.body;
+      console.log("🚀 ~ addDocs: ~ documentData:", appointmentData)
+      const newAppointment = await Appointment.create(appointmentData);
+      if (!newAppointment) {
         res.status(404).json({
           success: false,
           data: null,
-          message: "Document adding failed!",
+          message: "Appointment adding failed!",
         });
         return;
       }
       res.status(200).json({
         success: true,
-        data: newDoc,
-        message: "Document added successfully!",
+        data: newAppointment,
+        message: "Appointment added successfully!",
       });
     } catch (error) {
       console.log(error);

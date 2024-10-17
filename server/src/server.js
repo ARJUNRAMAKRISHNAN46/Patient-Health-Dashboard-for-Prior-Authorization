@@ -1,6 +1,7 @@
 const express = require("express");
 const userRouter = require("./routes/userRoutes");
-const docsRouter = require("./routes/docsRoutes");
+const appointmentRouter = require("./routes/appointmentRoute");
+const patientRouter = require("./routes/patientRoute");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const morgan = require("morgan");
@@ -46,7 +47,8 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(cors(corsOptions));
 app.use("/", userRouter);
-app.use("/docs", docsRouter);
+app.use("/patient", patientRouter);
+app.use("/appointment", appointmentRouter);
 
 app.listen(PORT, () => {
   console.log(`server starts in http://localhost:${PORT}`);
