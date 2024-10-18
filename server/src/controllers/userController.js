@@ -26,10 +26,18 @@ module.exports = {
 
       const AccessToken = generateAccessToken(payload);
 
-      res.cookie("access_token", AccessToken, {
+      // res.cookie("access_token", AccessToken, {
+      //   httpOnly: true,
+      //   sameSite: "none",
+      //   secure: true,
+      // });
+
+      res.cookie('access_token', AccessToken, {
         httpOnly: true,
-        sameSite: "none",
-        secure: true,
+        secure: process.env.NODE_ENV === 'production', 
+        sameSite: 'Lax',
+        path: '/',
+        maxAge: 7 * 24 * 60 * 60 * 1000, 
       });
 
       console.log("🚀 ~ return ~ result:", AccessToken);
